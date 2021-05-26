@@ -1,7 +1,6 @@
 package rocks.codesherpas.nostatements.java;
 
 import rocks.codesherpas.nostatements.kotlin.GuestId;
-import rocks.codesherpas.nostatements.kotlin.ReservationId;
 
 import java.time.DayOfWeek;
 import java.time.ZonedDateTime;
@@ -25,19 +24,17 @@ public class CancelReservation {
     public void invokeWith(ReservationId reservationId, GuestId guestId) {
         Reservation reservation = reservationSearcher.lastBy(guestId);
 
-            if(reservation != null) {
-                if (today() != SUNDAY && reservation.isFinished()) {
-                    Reservation reservation1 = reservationRepository.findReservationById(reservationId);
-                    reservation1.cancel();
+        if (reservation != null) {
+            if (reservation.isFinished()) {
+                Reservation reservation1 = reservationRepository.findReservationById(reservationId);
+                reservation1.cancel();
 
-                    eventPublisher.publish(reservation.pullEvents());
-                    LOGGER.info(formatLogMessage(reservation1));
-                } else {
-
-                }
-            } else {
-                cancelWithPenalty(reservationId, guestId);
+                eventPublisher.publish(reservation.pullEvents());
+                LOGGER.info(formatLogMessage(reservation1));
             }
+        } else {
+            cancelWithPenalty(reservationId, guestId);
+        }
     }
 
     private void cancelWithPenalty(ReservationId reservationId, GuestId guestId) {

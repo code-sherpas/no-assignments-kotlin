@@ -1,7 +1,5 @@
 package rocks.codesherpas.nostatements.java;
 
-import rocks.codesherpas.nostatements.kotlin.ReservationId;
-
 import java.util.Collections;
 import java.util.List;
 

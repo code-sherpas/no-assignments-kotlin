@@ -1,8 +1,8 @@
-package rocks.codesherpas.nostatements;
+package rocks.codesherpas.nostatements.java;
 
 import java.util.UUID;
 
-class ReservationId {
+public class ReservationId {
     private final UUID value;
 
     public ReservationId() {
